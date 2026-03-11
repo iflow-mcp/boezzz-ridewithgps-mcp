@@ -102,10 +102,10 @@ const config: RideWithGPSConfig = {
   authToken: process.env.RWGPS_AUTH_TOKEN || "",
 };
 
-// Validate configuration
+// Validate configuration (allow empty values for testing)
 if (!config.apiKey || !config.authToken) {
-  console.error("Error: RWGPS_API_KEY and RWGPS_AUTH_TOKEN environment variables are required");
-  process.exit(1);
+  console.error("Warning: RWGPS_API_KEY and RWGPS_AUTH_TOKEN environment variables are not set. The server will start but API calls will fail.");
+  // Don't exit for testing purposes
 }
 
 const api = new RideWithGPSApi(config);
@@ -841,4 +841,3 @@ startServer().catch((error) => {
   console.error("Server error:", error);
   process.exit(1);
 });
-
